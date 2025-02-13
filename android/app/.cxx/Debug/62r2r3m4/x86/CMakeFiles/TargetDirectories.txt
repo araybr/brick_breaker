@@ -1,0 +1,2 @@
+/home/abritor/Documentos/Programación Móvil/brick_breaker/android/app/.cxx/Debug/62r2r3m4/x86/CMakeFiles/edit_cache.dir
+/home/abritor/Documentos/Programación Móvil/brick_breaker/android/app/.cxx/Debug/62r2r3m4/x86/CMakeFiles/rebuild_cache.dir

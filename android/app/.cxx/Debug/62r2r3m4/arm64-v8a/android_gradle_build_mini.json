@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/home/abritor/development/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/abritor/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/abritor/Documentos/Programación Móvil/brick_breaker/android/app/.cxx/Debug/62r2r3m4/arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/abritor/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/abritor/Documentos/Programación Móvil/brick_breaker/android/app/.cxx/Debug/62r2r3m4/arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
