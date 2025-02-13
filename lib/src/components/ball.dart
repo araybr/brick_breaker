@@ -4,7 +4,7 @@ import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import '../brick_breaker.dart';
 import 'bat.dart';
-import 'brick.dart'; // Add this import
+import 'brick.dart';
 import 'play_area.dart';
 
 class Ball extends CircleComponent
@@ -13,7 +13,7 @@ class Ball extends CircleComponent
     required this.velocity,
     required super.position,
     required double radius,
-    required this.difficultyModifier, // Add this parameter
+    required this.difficultyModifier,
   }) : super(
             radius: radius,
             anchor: Anchor.center,
@@ -22,7 +22,7 @@ class Ball extends CircleComponent
               ..style = PaintingStyle.fill,
             children: [CircleHitbox()]);
   final Vector2 velocity;
-  final double difficultyModifier; // Add this member
+  final double difficultyModifier;
   @override
   void update(double dt) {
     super.update(dt);
@@ -42,15 +42,17 @@ class Ball extends CircleComponent
         velocity.x = -velocity.x;
       } else if (intersectionPoints.first.y >= game.height) {
         add(RemoveEffect(
-          delay: 0.35,
-        ));
+            delay: 0.35,
+            onComplete: () {
+              // Modify from here
+              game.playState = PlayState.gameOver;
+            })); // To here.
       }
     } else if (other is Bat) {
       velocity.y = -velocity.y;
       velocity.x = velocity.x +
           (position.x - other.position.x) / other.size.x * game.width * 0.3;
     } else if (other is Brick) {
-      // Modify from here...
       if (position.y < other.position.y - other.size.y / 2) {
         velocity.y = -velocity.y;
       } else if (position.y > other.position.y + other.size.y / 2) {
@@ -60,7 +62,7 @@ class Ball extends CircleComponent
       } else if (position.x > other.position.x) {
         velocity.x = -velocity.x;
       }
-      velocity.setFrom(velocity * difficultyModifier); // To here.
+      velocity.setFrom(velocity * difficultyModifier);
     }
   }
 }
