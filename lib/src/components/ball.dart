@@ -1,9 +1,10 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart'; // Add this import
+import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import '../brick_breaker.dart';
-import 'bat.dart'; // And this import
+import 'bat.dart';
+import 'brick.dart'; // Add this import
 import 'play_area.dart';
 
 class Ball extends CircleComponent
@@ -12,6 +13,7 @@ class Ball extends CircleComponent
     required this.velocity,
     required super.position,
     required double radius,
+    required this.difficultyModifier, // Add this parameter
   }) : super(
             radius: radius,
             anchor: Anchor.center,
@@ -20,6 +22,7 @@ class Ball extends CircleComponent
               ..style = PaintingStyle.fill,
             children: [CircleHitbox()]);
   final Vector2 velocity;
+  final double difficultyModifier; // Add this member
   @override
   void update(double dt) {
     super.update(dt);
@@ -39,7 +42,6 @@ class Ball extends CircleComponent
         velocity.x = -velocity.x;
       } else if (intersectionPoints.first.y >= game.height) {
         add(RemoveEffect(
-          // Modify from here...
           delay: 0.35,
         ));
       }
@@ -47,9 +49,18 @@ class Ball extends CircleComponent
       velocity.y = -velocity.y;
       velocity.x = velocity.x +
           (position.x - other.position.x) / other.size.x * game.width * 0.3;
-    } else {
-      // To here.
-      debugPrint('collision with $other');
+    } else if (other is Brick) {
+      // Modify from here...
+      if (position.y < other.position.y - other.size.y / 2) {
+        velocity.y = -velocity.y;
+      } else if (position.y > other.position.y + other.size.y / 2) {
+        velocity.y = -velocity.y;
+      } else if (position.x < other.position.x) {
+        velocity.x = -velocity.x;
+      } else if (position.x > other.position.x) {
+        velocity.x = -velocity.x;
+      }
+      velocity.setFrom(velocity * difficultyModifier); // To here.
     }
   }
 }
