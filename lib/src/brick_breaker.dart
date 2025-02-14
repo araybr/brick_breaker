@@ -69,11 +69,13 @@ class BrickBreaker extends FlameGame
       for (var i = 0; i < brickColors.length; i++)
         for (var j = 1; j <= 5; j++)
           Brick(
+            game: this, // Pasamos la referencia del juego
             position: Vector2(
               (i + 0.5) * brickWidth + (i + 1) * brickGutter,
               (j + 2.0) * brickHeight + j * brickGutter,
             ),
             color: brickColors[i],
+            health: rand.nextInt(3) + 1, // Resistencia aleatoria (1-3 golpes)
           ),
     ]);
   }
@@ -89,6 +91,13 @@ class BrickBreaker extends FlameGame
           ..rotate(math.pi / 6), // Pequeña variación en ángulo
       );
       world.add(newBall);
+    }
+  }
+
+  void updateBatSize(double newWidth) {
+    final bat = world.children.query<Bat>().firstOrNull;
+    if (bat != null) {
+      bat.width = newWidth;
     }
   }
 
