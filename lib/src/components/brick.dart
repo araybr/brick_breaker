@@ -30,24 +30,22 @@ class Brick extends RectangleComponent with CollisionCallbacks {
     super.onCollisionStart(intersectionPoints, other);
 
     if (other is Ball) {
-      health--; // Reducir resistencia con cada colisión
+      health--;
       if (health <= 0) {
         removeFromParent();
-        game.score.value++; // Ahora `game` está definido correctamente
+        game.score.value++;
 
-        // Probabilidad de soltar un PowerUp (20%)
+        //20% probabilidad
         if (game.rand.nextDouble() < 0.2) {
           game.world.add(PowerUpBall(position: position.clone()));
         }
 
-        // Si es el último ladrillo, el jugador gana
         if (game.world.children.query<Brick>().length == 1) {
           game.playState = PlayState.won;
           game.world.removeAll(game.world.children.query<Ball>());
           game.world.removeAll(game.world.children.query<Bat>());
         }
       } else {
-        // Cambiar color según la resistencia (opcional, para visualización)
         paint.color = paint.color.withOpacity(health / 3);
       }
     }

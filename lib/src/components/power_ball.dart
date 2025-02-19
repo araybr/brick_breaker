@@ -23,7 +23,10 @@ class PowerUpBall extends CircleComponent
   @override
   void update(double dt) {
     super.update(dt);
-    position.y += 200 * dt; // Velocidad de caída
+    position.y += 200 * dt; 
+    if(game.playState!=PlayState.playing){
+      removeFromParent();
+    }
   }
 
   @override
@@ -32,17 +35,15 @@ class PowerUpBall extends CircleComponent
       int valor = Random().nextInt(2) + 1;
 
       if (valor == 1) {
-        game.duplicateBalls(); // Duplica las bolas
+        game.duplicateBalls();
       } else {
-        game.updateBatSize(other.width + 100); // Aumenta el tamaño del bat
-
-        // Si quieres que el efecto sea temporal:
+        game.updateBatSize(other.width + 100); 
         Future.delayed(Duration(seconds: 15), () {
-          game.updateBatSize(other.width - 100); // Vuelve al tamaño original
+          game.updateBatSize(other.width - 100); 
         });
       }
 
-      removeFromParent(); // Elimina el power-up tras la colisión
+      removeFromParent();
     }
   }
 }

@@ -49,7 +49,6 @@ class _GameAppState extends State<GameApp> {
               padding: const EdgeInsets.all(16),
               child: Center(
                 child: Column(
-                  // Modify from here...
                   children: [
                     ScoreCard(score: game.score),
                     Expanded(

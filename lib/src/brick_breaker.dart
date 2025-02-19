@@ -19,7 +19,7 @@ class BrickBreaker extends FlameGame
             height: gameHeight,
           ),
         );
-  final ValueNotifier<int> score = ValueNotifier(0); // Add this line
+  final ValueNotifier<int> score = ValueNotifier(0);
   final rand = math.Random();
   double get width => size.x;
   double get height => size.y;
@@ -53,7 +53,7 @@ class BrickBreaker extends FlameGame
     world.removeAll(world.children.query<Bat>());
     world.removeAll(world.children.query<Brick>());
     playState = PlayState.playing;
-    score.value = 0; // Add this line
+    score.value = 0;
     world.add(Ball(
         difficultyModifier: difficultyModifier,
         radius: ballRadius,
@@ -69,13 +69,13 @@ class BrickBreaker extends FlameGame
       for (var i = 0; i < brickColors.length; i++)
         for (var j = 1; j <= 5; j++)
           Brick(
-            game: this, // Pasamos la referencia del juego
+            game: this,
             position: Vector2(
               (i + 0.5) * brickWidth + (i + 1) * brickGutter,
               (j + 2.0) * brickHeight + j * brickGutter,
             ),
             color: brickColors[i],
-            health: rand.nextInt(3) + 1, // Resistencia aleatoria (1-3 golpes)
+            health: rand.nextInt(3) + 1,
           ),
     ]);
   }
@@ -88,7 +88,7 @@ class BrickBreaker extends FlameGame
         radius: ballRadius,
         position: ball.position.clone(),
         velocity: ball.velocity.clone()
-          ..rotate(math.pi / 6), // Pequeña variación en ángulo
+          ..rotate(math.pi / 6),
       );
       world.add(newBall);
     }
