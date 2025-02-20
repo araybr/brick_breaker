@@ -28,8 +28,8 @@ class _GameAppState extends State<GameApp> {
       theme: ThemeData(
         useMaterial3: true,
         textTheme: GoogleFonts.pressStart2pTextTheme().apply(
-          bodyColor: const Color(0xff184e77),
-          displayColor: const Color(0xff184e77),
+          bodyColor: const  Color.fromRGBO(231, 14, 217, 1),
+          displayColor: const  Color.fromRGBO(231, 14, 217, 1)
         ),
       ),
       home: Scaffold(
@@ -40,8 +40,9 @@ class _GameAppState extends State<GameApp> {
               end: Alignment.bottomCenter,
               colors: [
                 Color(0xffa9d6e5),
-                Color(0xfff2e8cf),
+                Color.fromRGBO(231, 14, 217, 1),
               ],
+            
             ),
           ),
           child: SafeArea(

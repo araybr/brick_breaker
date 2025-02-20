@@ -1,6 +1,8 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flame/particles.dart';
+
 import 'package:flutter/material.dart';
 import '../brick_breaker.dart';
 import 'bat.dart';
@@ -18,15 +20,43 @@ class Ball extends CircleComponent
             radius: radius,
             anchor: Anchor.center,
             paint: Paint()
-              ..color = const Color(0xff1e6091)
+              ..color = const Color.fromARGB(255, 255, 255, 255)
               ..style = PaintingStyle.fill,
             children: [CircleHitbox()]);
+
   final Vector2 velocity;
   final double difficultyModifier;
+
   @override
   void update(double dt) {
     super.update(dt);
     position += velocity * dt;
+    final particle = ParticleSystemComponent(
+      position: position.clone(),
+      priority: 1,
+      particle: Particle.generate(
+        count: 8, // Cantidad de Partículas
+        lifespan: 0.8, // Duración de cada partícula
+        generator: (i) {
+          return ComputedParticle(
+            lifespan: 0.4,
+            renderer: (canvas, particle) {
+              final progress = 1 - particle.progress; 
+              final paint = Paint()
+                ..color = const Color.fromARGB(255, 248, 232, 232).withOpacity(
+                    progress * 0.5);
+
+              final size =
+                  radius * 0.3 * progress;
+
+              canvas.drawCircle(Offset.zero, size, paint);
+            },
+          );
+        },
+      ),
+    );
+    game.world.add(particle);
+    priority = 1;
   }
 
   @override
@@ -45,10 +75,9 @@ class Ball extends CircleComponent
           add(RemoveEffect(
               delay: 0.35,
               onComplete: () {
-                // Modify from here
                 game.playState = PlayState.gameOver;
-              })); // To here.
-        }else{
+              }));
+        } else {
           removeFromParent();
         }
       }
