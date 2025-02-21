@@ -1,3 +1,4 @@
+import 'package:brick_breaker/src/config.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -30,7 +31,10 @@ class Ball extends CircleComponent
   @override
   void update(double dt) {
     super.update(dt);
-    position += velocity * dt;
+     final adjustedVelocity = (velocity.length > limiteVelocidad)
+      ? velocity.normalized() * limiteVelocidad
+      : velocity;
+    position += adjustedVelocity * dt;
     final particle = ParticleSystemComponent(
       position: position.clone(),
       priority: 1,

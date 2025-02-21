@@ -38,7 +38,7 @@ class PowerUpBall extends CircleComponent
         game.duplicateBalls();
       } else {
         game.updateBatSize(other.width + 100); 
-        Future.delayed(Duration(seconds: 15), () {
+        Future.delayed(Duration(seconds: 10), () {
           game.updateBatSize(other.width - 100); 
         });
       }

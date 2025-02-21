@@ -29,7 +29,7 @@ class _GameAppState extends State<GameApp> {
         useMaterial3: true,
         textTheme: GoogleFonts.pressStart2pTextTheme().apply(
           bodyColor: const  Color.fromRGBO(231, 14, 217, 1),
-          displayColor: const  Color.fromRGBO(231, 14, 217, 1)
+          displayColor: const  Color.fromRGBO(231, 14, 217, 1),
         ),
       ),
       home: Scaffold(
